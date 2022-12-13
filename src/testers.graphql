@@ -1,0 +1,64 @@
+type Course = {
+    _id: string;
+    title: string; 
+    count: number;
+}
+
+type Tester = {
+    _id,
+    fio,
+    courses,
+
+}
+
+fragment CourseFragment on Course {
+    _id, title
+}
+
+fragment TesterFragment on Tester {
+    _id, fio
+}
+
+query GetAllCourses {
+    getAllCourses {
+        ...CourseFragment,
+        count
+    }
+}
+
+
+query GetAllTesters {
+    getAllTesters {
+        _id, 
+        fio,
+        courses,
+    }
+}
+
+
+query GetTestersByCourse($id: ID!) {
+    getTestersByCourse(courseId: id) {
+        ...TesterFragment,
+        status,
+        date
+    }
+}
+
+query GetTestersByStatus($status: string!) {
+    getTestersByStatus(status: $status) {
+        ...TesterFragment,
+        status,
+        date
+    }
+}
+
+query GetTester($id: ID!) {
+    getTester(id: $id) {
+        ...TesterFragment,
+        registerDate,
+        phone_number,
+        email,
+        courses
+    }
+}
+
